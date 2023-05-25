@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserResourceCollection;
 use App\Models\User;
@@ -55,6 +56,22 @@ class UserController extends Controller
             'password' => bcrypt($request->password),
         ]);
         return $this->successResponse('','User created successfully');
+
+    }
+
+    public function edit($id)
+    {
+        $user = User::find($id);
+        return $this->successResponse(new UserResource($user),'');
+    }
+    public function update(UserUpdateRequest $request){
+
+        User::where('id',$request->id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+        return $this->successResponse('','User update successfully');
 
     }
     public function destroy(Request $request){
