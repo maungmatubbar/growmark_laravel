@@ -31,4 +31,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/user/edit/{id}',[UserController::class,'edit']);
     Route::post('/user/update',[UserController::class,'update']);
     Route::post('/user/delete',[UserController::class,'destroy']);
+
+    //Services Routes
+    Route::apiResource('/services',\App\Http\Controllers\Backend\ServiceController::class);
 });
